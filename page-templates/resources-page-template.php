@@ -26,12 +26,11 @@ $args = array(
 	'post_status'      => 'publish',
 	'suppress_filters' => true,
 	'fields'           => '',
-	'post__not_in'     => array( 348, ),
+	'post__not_in'     => array( 348, 362, 845),
 );
 // $posts_array = get_posts( $args );
 $loop = new WP_Query($args);
 ?>
-
 <div class="wrapper" id="index-wrapper">
 	<div class="<?php echo esc_attr( $container ); ?>" id="content" tabindex="-1">
 		<div class="resource-hero-wrapper row no-gutters">
@@ -39,7 +38,7 @@ $loop = new WP_Query($args);
 		</div><!-- End Hero Wrapper -->
 		<div class="audience-page-info-wrapper">
 			<div class="row no-gutters justify-content-center">
-				<div class="col-6">
+				<div class="col-11 col-lg-6">
 					<div class="row no-gutters">
 						<nav aria-label="breadcrumb">
 							<ol class="breadcrumb">
@@ -47,144 +46,107 @@ $loop = new WP_Query($args);
 									<a href="<?php echo get_permalink($post->post_parent); ?>">Home</a>
 								</li>
 								<li class="breadcrumb-item active" aria-current="page">
-									<a href="<?php echo get_page_link()?>"><?php echo wp_title(''); ?></a>
+									<a href="<?php echo get_page_link()?>"><?php echo get_the_title(''); ?></a>
 								</li>
 							</ol>
 						</nav>
 					</div>
-					<div class="row no-gutters pt-3">
-						<p class="audience-page-info-text">
-							<?php the_field('info_text'); ?>
-						</p>
+					<div class="audience-page-info-text row no-gutters pt-3">
+						<?php the_field('info_text'); ?>
 					</div>
 				</div>
 			</div>
 		</div><!-- End Info Wrapper -->
-		<div class="main-content-wrapper">
-			<div class="rect-two">
+		<div class="main-content-wrapper py-5">
+			<div class="rect-two d-none d-lg-block">
 				<img src="/wp-content/uploads/2018/05/Rectangles-Right.svg" alt="">
 			</div>
 			<div class="row no-gutters justify-content-center">
-				<div class="col-7">
-					<div class="recent-articles-heading row justify-content-between align-items-center">
-						<div class="col-6 text-left p-0">
-							<h2>Recent Articles</h2>
+				<div class="col-11 col-lg-8"><!-- start main col -->
+					<div class="recent-articles-wrapper">
+						<?php require( get_stylesheet_directory() . '/template-includes/recent-articles-3-posts-no-twitter.php' ); ?>
+					</div><!-- Recent Articles end -->
+					<!-- start featured vid -->
+					<div class="featured-vid-wrapper mt-5">
+						<div class="recent-articles-heading row no-gutters justify-content-between align-items-center">
+							<div class="col-lg-6 text-left p-0">
+								<h2>Featured Video</h2>
+							</div>
+							<div class="col-6 text-right p-0 d-none d-lg-block">
+								<a href="/homepage/resources/media-library/">VIEW MORE<i class="fas fa-chevron-right"></i></a>
+							</div>
 						</div>
-						<div class="col-6 text-right p-0">
-							<a href="/homepage/resources/articles/">VIEW MORE<i class="fas fa-chevron-right"></i></a>
-						</div>
-					</div>
-					<div class="posts-wrapper row">
-						<div class="row justify-content-between">
-							<?php if ( $loop->have_posts() ) : while ( $loop->have_posts() ) : $loop->the_post(); ?>
-								<?php if( get_field('article_hero_image', false, false) ): ?>
-								<div class="col-lg-4 my-3">
-									<a href="<?php echo the_permalink();?>">
-										<div class="article-card row no-gutters">
-											<div class="col-4 col-lg-12" >
-												<div class="article-card-image" style="background-image: url(<?php the_field('article_hero_image') ?>);">
-												</div>
-											</div>	
-											<div class="article-card-info col-8 col-lg-12 order-first order-lg-last">
-												<h5 class="article-card-title w-100"><?php echo the_field('article_hero_title'); ?></h5>
-												<div class="article-card-tag-list mt-auto">
-													<?php 
-														$posttags = get_the_tags(); 
-														$tag_count = 1;
-													?>
-													<p>
-														<?php foreach($posttags as $tag): ?>
-															<?php
-																if($tag_count === count($posttags)){
-																	echo $tag->name;
-																} else {
-																	echo $tag->name.", "; 
-																}
-																$tag_count++;
-															?>
-														<?php endforeach; ?>
-													</p>
-												</div>
-											</div>
+						<div class="row no-gutters mt-3">
+							<?php if( get_field('video_title')): ?>
+								<div class="col p-0">
+									<div class="row no-gutters">
+										<h4 class="main-h4">
+											<?php the_field('video_title'); ?>
+										</h4>
+									</div>
+									<div class="row no-gutters mt-3">
+										<div class="embed-responsive embed-responsive-16by9">
+											<iframe class="embed-responsive-item" src="<?php the_field('video_link'); ?>" allowfullscreen></iframe>
 										</div>
-									</a>
+									</div>
 								</div>
-								<?php else: ?>
-								<div class="col-lg-4 my-3">
-									<a href="<?php echo the_permalink();?>">
-										<div class="article-card-no-img">
-											<div class="row no-gutters">
-												<h5 class="article-card-title w-100">
-													<?php echo the_field('article_hero_title'); ?>
-												</h5>
-											</div>
-											<div class="row no-gutters position-relative">
-												<?php 
-													while( have_rows('article_content')): the_row();
-													$summary = get_sub_field('article_text', false, false); 	
-												?>
-												<div class="text-fade-overlay"></div>
-												<p class="main-p">
-													<?php echo substr($summary, 0, 200) . "..."; ?>	
-												</p>
-												<? endwhile; ?>
-											</div>
-											<div class="row no-gutters mt-lg-auto">
-												<div class="article-card-tag-list">
-													<?php 
-														$posttags = get_the_tags(); 
-														$tag_count = 1;
-													?>
-													<p>
-														<?php foreach($posttags as $tag): ?>
-															<?php
-																if($tag_count === count($posttags)){
-																	echo $tag->name;
-																} else {
-																	echo $tag->name.", "; 
-																}
-																$tag_count++;
-															?>
-														<?php endforeach; ?>
-													</p>
-												</div>
-											</div>
-										</div>
-									</a>
-								</div>						
-								<?php endif; ?>
-							<?php endwhile; ?>
 							<?php endif; ?>
-							<?php wp_reset_postdata(); ?>
-						</div><!-- end article card row -->
-					</div>
-					<div class="recent-articles-heading row justify-content-between align-items-center">
-						<div class="col-6 text-left p-0">
-							<h2>Featured Video</h2>
 						</div>
-						<div class="col-6 text-right p-0">
-							<a href="#">VIEW MORE<i class="fas fa-chevron-right"></i></a>
+						<div class="recent-articles-heading row no-gutters justify-content-between align-items-center">
+							<div class="col-12 text-center p-0 d-block d-lg-none mt-3">
+								<a href="/homepage/resources/media-library/">VIEW MORE<i class="fas fa-chevron-right"></i></a>
+							</div>
 						</div>
-					</div>
-				</div>
+					</div><!-- end featured vid -->
+				</div><!-- end main col -->
 			</div>
-        </div>
+		</div><!-- end main-content wrapper -->
 		<div class="testimonials-wrapper">
-			<div class="circle-square-left">
-				<img src="/wp-content/uploads/2018/05/Circle-Square-left.svg" alt="">
+			<div class="circle-square-left d-none d-lg-block">
+				<img src="/wp-content/uploads/2018/06/Circle-Square-left.svg" alt="">
 			</div>
-			<div class="circle-square-right">
-				<img src="/wp-content/uploads/2018/05/Circle-Square-right.svg" alt="">
+			<div class="circle-square-right d-none d-lg-block">
+				<img src="/wp-content/uploads/2018/06/Circle-Square-right.svg" alt="">
 			</div>
 			<div class="row no-gutters justify-content-center py-4">
-				<div class="col-7">
-					<div class="recent-articles-heading row justify-content-between align-items-center">
-						<div class="col-6 text-left p-0">
+				<div class="col-11 col-lg-8">
+					<div class="recent-articles-heading row no-gutters">
+						<div class="col-lg-6 text-left p-0">
 							<h2>Industry Links</h2>
 						</div>
 					</div>
-					<div>
-						
+					<div class="row no-gutters">
+						<?php if(have_rows('industry_links')): ?>
+							<?php while(have_rows('industry_links')): the_row(); ?>
+								<div class="col-md-4 pl-0 pr-2">
+									<?php if(get_sub_field('industry_links_column_one')): ?>
+										<?php while( have_rows('industry_links_column_one')): the_row(); ?>
+											<div class="row no-gutters py-1">
+												<a href="<?php the_sub_field('link_url'); ?>" target="_blank"><?php the_sub_field('link_text'); ?></a>
+											</div>
+										<?php endwhile; ?>
+									<?php endif; ?>
+								</div>										
+								<div class="col-md-4 pl-0 pr-2">
+									<?php if(get_sub_field('industry_links_column_two')): ?>
+										<?php while( have_rows('industry_links_column_two')): the_row(); ?>
+											<div class="row no-gutters py-1">
+												<a href="<?php the_sub_field('link_url'); ?>" target="_blank"><?php the_sub_field('link_text'); ?></a>
+											</div>
+										<?php endwhile; ?>
+									<?php endif; ?>
+								</div>										
+								<div class="col-md-4 pl-0 pr-2">
+									<?php if(get_sub_field('industry_links_column_three')): ?>
+										<?php while( have_rows('industry_links_column_three')): the_row(); ?>
+											<div class="row no-gutters py-1">
+												<a href="<?php the_sub_field('link_url'); ?>" target="_blank"><?php the_sub_field('link_text'); ?></a>
+											</div>
+										<?php endwhile; ?>
+									<?php endif; ?>
+								</div>
+							<?php endwhile; ?>
+						<?php endif; ?>
 					</div>
 				</div>
 			</div>

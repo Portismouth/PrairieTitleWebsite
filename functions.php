@@ -8,11 +8,11 @@ function understrap_remove_scripts() {
 
     // Removes the parent themes stylesheet and scripts from inc/enqueue.php
 }
+add_theme_support( 'post-thumbnails' );
 add_action( 'wp_enqueue_scripts', 'understrap_remove_scripts', 20 );
 
 add_action( 'wp_enqueue_scripts', 'theme_enqueue_styles' );
 function theme_enqueue_styles() {
-
 	// Get the theme data
 	$the_theme = wp_get_theme();
     wp_enqueue_style( 'child-understrap-styles', get_stylesheet_directory_uri() . '/css/child-theme.min.css', array(), $the_theme->get( 'Version' ) );
@@ -23,6 +23,11 @@ function theme_enqueue_styles() {
         wp_enqueue_script( 'comment-reply' );
     }
     wp_enqueue_style( 'child-custom-styles', get_stylesheet_directory_uri() . '/css/custom.css', array(), $the_theme->get( 'Version' ) );
+    wp_enqueue_script( 'articles-filter', get_theme_file_uri() . '/js/article-filter.js', array( 'jquery' ), null, true );
+    wp_localize_script( 'article-filter', 'article_filter_vars', array(
+        'ajaxurl' => admin_url( 'admin-ajax.php' ),
+        'nonce' => wp_create_nonce( 'ajax_custom_nonce' )
+    ) );
 }
 
 function change_post_menu_label() {
@@ -69,15 +74,29 @@ add_action('add_meta_boxes', 'wpse196289_default_page_template', 1);
 add_filter("gform_submit_button_1", "form_submit_button", 10, 2);
 add_filter("gform_submit_button_4", "form_submit_button", 10, 2);
 add_filter("gform_submit_button_5", "rate_submit_button", 10, 2);
+add_filter("gform_submit_button_6", "form_submit_button", 10, 2);
+add_filter("gform_submit_button_7", "rate_submit_button", 10, 2);
 function form_submit_button($button, $form){
     return "<button class='btn btn-primary main-btn' id='gform_submit_button_{$form["id"]}'>Submit <span><i class='fas fa-chevron-right'></i></span></button>";
 }
 function rate_submit_button($button, $form){
-    return "<button class='btn btn-primary main-btn' id='gform_submit_button_{$form["id"]}'>Send Email <span><i class='fas fa-chevron-right'></i></span></button>";
+    return (
+        "<button class='btn btn-primary main-btn' id='gform_submit_button_{$form["id"]}'>
+            Send Email <span><i class='fas fa-chevron-right'></i></span>
+        </button>"
+    );
 }
+
 
 //Change hook of gform_submit_button_X to the form that you are using 
 //Change <span><i class='fa fa-share fa-2x'></i> Send </span> to Font awesome and text of your choice
+
+add_filter( 'gform_confirmation_5', 'ag_custom_confirmation', 10, 4 );
+function ag_custom_confirmation( $confirmation, $form, $entry, $ajax ) {
+    $thisform = $form['id'];
+	return $confirmation;
+}
+
 
 $option_posts_per_page = get_option( 'posts_per_page' );
 add_action( 'init', 'my_modify_posts_per_page', 0);
@@ -92,3 +111,12 @@ function my_option_posts_per_page( $value ) {
         return $option_posts_per_page;
     }
 }
+
+function jptweak_remove_share() {
+    remove_filter( 'the_content', 'sharing_display', 19 );
+    remove_filter( 'the_excerpt', 'sharing_display', 19 );
+    if ( class_exists( 'Jetpack_Likes' ) ) {
+        remove_filter( 'the_content', array( Jetpack_Likes::init(), 'post_likes' ), 30, 1 );
+    }
+}
+add_action( 'loop_start', 'jptweak_remove_share' );

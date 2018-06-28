@@ -26,7 +26,7 @@ $post_args = array(
 	'post_status'      => 'publish',
 	'suppress_filters' => true,
 	'fields'           => '',
-	'post__not_in'     => array( 348, 362),
+	'post__not_in'     => array( 348, 362, 845),
 );
 // $posts_array = get_posts( $args );
 $loop = new WP_Query($post_args);
@@ -39,7 +39,7 @@ $tags = get_tags(array('hide_empty' => false));
 			<?php require_once( get_stylesheet_directory() . '/template-includes/page-hero.php' ); ?>
 		</div><!-- End Hero Wrapper -->
 		<div class="main-content-wrapper">
-			<div class="rect-two">
+			<div class="rect-two d-none d-lg-block">
 				<img src="/wp-content/uploads/2018/06/Rectangles-Right-2.svg" alt="">
 			</div>
 			<div class="article-container row no-gutters justify-content-center py-5">
@@ -53,7 +53,7 @@ $tags = get_tags(array('hide_empty' => false));
 								</li>
 							<?php endforeach ?>
 								<li class="breadcrumb-item active" aria-current="page">
-									<a href="<?php echo get_page_link()?>"><?php echo wp_title(''); ?></a>
+									<a href="<?php echo get_page_link()?>"><?php echo get_the_title(''); ?></a>
 								</li>
 							</ol>
 						</nav>
@@ -70,10 +70,10 @@ $tags = get_tags(array('hide_empty' => false));
 							</p>
 						</div>
 					</div>
-					<div class="glossary-filter row no-gutters mb-3">
+					<div class="glossary-filter row mb-3">
 						<?php foreach($tags as $tag): ?>
 							<?php if(strlen($tag->slug) < 2): ?>
-								<div class="col-1">
+								<div class="col-2 col-sm-1">
 									<a class="glossary-filter-link" href="/homepage/for-consumers/glossary/?letter=<?php echo $tag->slug; ?>">
 										<h1 class="glossary-letter">
 											<?php echo $tag->name ?>
@@ -84,96 +84,88 @@ $tags = get_tags(array('hide_empty' => false));
 						<?php endforeach ?>
 					</div>
 				</div>
-				<div class="article-container row no-gutters justify-content-center pb-5">
-					<div class="col-11 col-lg-5">
-						<?php 
-							$paged = ( get_query_var( 'paged' ) ) ? get_query_var( 'paged' ) : 1;
-							$tag = isset($_GET['letter']) ? $_GET['letter'] : '';
-							$args = array(
-								'post_type'      => 'glossary',
-								'paged'          => $paged,
-								'orderby'        => 'title',
-								'order'          => 'ASC',
-								'posts_per_page' => 14,
-								'tag'            => $tag
-							);
-							$terms = new WP_Query($args);
-							$tag_count = 1;
-						?>
-						<?php if ( $terms->have_posts() ) : ?> 
-							<?php while ( $terms->have_posts() ) : $terms->the_post(); ?>
-								<div class="row no-gutters mb-4">
-									<div class="col">
-										<?php 
-											$taggy_tag = get_the_tags();
-											if( $tag_count === 1 || $current_tag !== $taggy_tag[0]->name): 
-										?>
-											<div class="glossary-index row no-gutters my-3">
-												<h1>
-													<?php echo $taggy_tag[0]->name; ?>
-												</h1>
-											</div>	
-										<?php 
-											$current_tag = $taggy_tag[0]->name;
-											$tag_count++;
-											endif; 
-										?>
-										<div class="glossary-entry-h1 row no-gutters">
+			</div>	
+			<div class="article-container row no-gutters justify-content-center pb-5">
+				<div class="col-11 col-lg-5">
+					<?php 
+						$paged = ( get_query_var( 'paged' ) ) ? get_query_var( 'paged' ) : 1;
+						$tag = isset($_GET['letter']) ? $_GET['letter'] : '';
+						$args = array(
+							'post_type'      => 'glossary',
+							'paged'          => $paged,
+							'orderby'        => 'title',
+							'order'          => 'ASC',
+							'posts_per_page' => 14,
+							'tag'            => $tag
+						);
+						$terms = new WP_Query($args);
+						$tag_count = 1;
+					?>
+					<?php if ( $terms->have_posts() ) : ?> 
+						<?php while ( $terms->have_posts() ) : $terms->the_post(); ?>
+							<div class="row no-gutters mb-4">
+								<div class="col">
+									<?php 
+										$taggy_tag = get_the_tags();
+										if( $tag_count === 1 || $current_tag !== $taggy_tag[0]->name): 
+									?>
+										<div class="glossary-index row no-gutters my-3">
 											<h1>
-												<?php the_title(); ?>
+												<?php echo $taggy_tag[0]->name; ?>
 											</h1>
-										</div>
-										<div class="glossary-entry-p row no-gutters">
-											<?php the_content(); ?>
-										</div>
+										</div>	
+									<?php 
+										$current_tag = $taggy_tag[0]->name;
+										$tag_count++;
+										endif; 
+									?>
+									<div class="glossary-entry-h1 row no-gutters">
+										<h1 class="glossary-entry-h1">
+											<?php the_title(); ?>
+										</h1>
+									</div>
+									<div class="glossary-entry-p row no-gutters">
+										<?php the_content(); ?>
 									</div>
 								</div>
-							<?php endwhile; ?>
-						<?php endif; ?>
-						<?php wp_reset_postdata(); ?>
-						<div class="row no-gutters justify-content-center mt-5">
-							<div class="col-7">
-								<nav class="pagination justify-content-between">
-									<?php
-										$big = 999999999; // need an unlikely integer
-										$prev = "<i class='fas fa-chevron-left'></i>";
-										$next = "<i class='fas fa-chevron-right'></i>";
-										echo paginate_links( array(
-											'base' => str_replace( $big, '%#%', esc_url( get_pagenum_link( $big ) ) ),
-											'format' => '?paged=%#%',
-											'current' => max( 1, get_query_var('paged') ),
-											'total' => $terms->max_num_pages,
-											'before_page_number' => '<span class="screen-reader-text">'.$translated.' </span>',
-											'prev_text' => $prev,
-											'next_text' => $next	
-										) );
-									?>
-								</nav>
 							</div>
-						</div>
-					</div>
+						<?php endwhile; ?>
+					<?php endif; ?>
+					<?php wp_reset_postdata(); ?>
+				</div>
+			</div>
+			<div class="row no-gutters justify-content-center mb-5 mt-lg-5">
+				<div class="col-11 col-lg-4">
+					<nav class="pagination justify-content-between">
+						<?php
+							$big = 999999999; // need an unlikely integer
+							$prev = "<i class='fas fa-chevron-left'></i>";
+							$next = "<i class='fas fa-chevron-right'></i>";
+							echo paginate_links( array(
+								'base' => str_replace( $big, '%#%', esc_url( get_pagenum_link( $big ) ) ),
+								'format' => '?paged=%#%',
+								'current' => max( 1, get_query_var('paged') ),
+								'total' => $terms->max_num_pages,
+								'before_page_number' => '<span class="screen-reader-text">'.$translated.' </span>',
+								'prev_text' => $prev,
+								'next_text' => $next	
+							) );
+						?>
+					</nav>
 				</div>
 			</div>
 			<!-- First page - 5 results, 14 results following -->
 			<div class="recent-articles-wrapper row no-gutters">
-				<div class="recent-articles-circle-square-left">
-					<img src="/wp-content/uploads/2018/05/Circle-Square-Left.svg" alt="">
+				<div class="recent-articles-circle-square-left d-none d-lg-block">	
+					<img src="/wp-content/uploads/2018/06/Circle-Square-Left-Full.svg" alt="">
 				</div>
-				<div class="recent-articles-circle-square-right">
-					<img src="/wp-content/uploads/2018/05/Circle-Square-Right.svg" alt="">
+				<div class="recent-articles-circle-square-right d-none d-lg-block">
+					<img src="/wp-content/uploads/2018/06/Circle-Square-Right-Full.svg" alt="">
 				</div>
 				<?php require( get_stylesheet_directory() . '/template-includes/recent-articles-4-posts.php' ); ?>
 			</div><!-- Recent Articles end -->
 		</div><!-- main content wrapper end -->
 	</div><!-- Container end -->
 </div><!-- Wrapper end -->
-<!-- <script type="text/javascript">
-	jQuery(document).ready(function($) {
-		$('.glossary-filter-button').on('submit', function(event) {
-			event.preventDefault);
 
-			console.log('click');
-		})
-	});
-</script> -->
 <?php get_footer(); ?>

@@ -12,27 +12,39 @@ remove_filter('the_excerpt', 'wpautop');
 	<div class="modal-dialog modal-dialog-centered" role="document">
 		<div class="modal-content">
 			<div class="modal-body">
-				<div class="row">
-					<div class="col-4">
+				<div class="row no-gutters justify-content-end">
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+				</div>
+				<div class="row no-gutters justify-content-center">
+					<div class="col-11">
 						<div class="row no-gutters">
-							<img class="employee-modal-image" src="/wp-content/uploads/2018/05/Frank-Pellegrini.png" alt="employee headshot">
-						</div>
-						<div class="row no-gutters mt-3">
-							<p class="emp-modal-number"></p>
-						</div>
-					</div>
-					<div class="col-8">
-						<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-							<span aria-hidden="true">&times;</span>
-						</button>
-						<div class="row no-gutters">
-							<h1 class="emp-modal-h1"></h1>
-						</div>
-						<div class="row no-gutters mt-1">
-							<p class="emp-modal-title main-p"></p>
-						</div>
-						<div class="row no-gutters">
-							<div class="emp-modal-bio main-p mt-3"></div>
+							<div class="col-5 col-lg-4 d-none d-sm-block">
+								<div class="row no-gutters">
+									<img class="employee-modal-image" src="/wp-content/uploads/2018/05/Frank-Pellegrini.png" alt="employee headshot">
+								</div>
+								<div class="row no-gutters mt-3">
+									<p class="emp-modal-number"></p>
+								</div>
+							</div>
+							<div class="col-sm-7 col-lg-8 pl-sm-2">
+								<div class="row no-gutters">
+									<h1 class="emp-modal-h1"></h1>
+								</div>
+								<div class="row no-gutters mt-sm-1 mb-3">
+									<p class="emp-modal-title main-p"></p>
+								</div>
+								<div class="row no-gutters d-block d-sm-none">
+									<img class="employee-modal-image" src="/wp-content/uploads/2018/05/Frank-Pellegrini.png" alt="employee headshot">
+								</div>
+								<div class="row no-gutters mt-3 d-block d-sm-none">
+									<p class="emp-modal-number"></p>
+								</div>
+								<div class="row no-gutters">
+									<div class="emp-modal-bio main-p"></div>
+								</div>
+							</div>	
 						</div>
 					</div>
 				</div>
@@ -46,30 +58,21 @@ remove_filter('the_excerpt', 'wpautop');
 			<?php require_once( get_stylesheet_directory() . '/template-includes/page-hero.php' ); ?>
 		</div><!-- End Hero Wrapper -->
 		<div class="audience-page-info-wrapper">
-			<div class="row no-gutters justify-content-center">
-				<div class="col-7">
-					<div class="row no-gutters justify-content-center">
-						<h2 class="audience-page-info-headline">
-							<?php the_field('info_headline'); ?>
-						</h2>
-					</div>
-					<div class="row no-gutters">
-						<p class="audience-page-info-text">
-							<?php the_field('info_text'); ?>
-						</p>
-					</div>
-				</div>
-			</div>
+			<?php require_once( get_stylesheet_directory() . '/template-includes/audience-page-info.php' ); ?>
 		</div><!-- End Info Wrapper -->
 		<div class="team-member-wrapper">
 			<div class="row no-gutters justify-content-center">
-				<div class="col-7">
-					<h2 class="main-h2 text-center">
-						<?php echo the_field('team_content_title'); ?>
-					</h2>
-					<p class="main-p mt-2">
-						<?php echo the_field('team_content_summary'); ?>
-					</p>	
+				<div class="col-11 col-lg-7">
+					<div class="row no-gutters justify-content-center">
+						<h2 class="main-h2--team-greet text-lg-center">
+							<?php echo the_field('team_content_title'); ?>
+						</h2>
+					</div>
+					<div class="row no-gutters">
+						<p class="main-p--team-greet mt-2">
+							<?php echo the_field('team_content_summary'); ?>
+						</p>	
+					</div>
 				</div>
 				<div class="col-10 col-lg-9">
 					<div class="row no-gutters justify-content-center">
@@ -102,7 +105,7 @@ remove_filter('the_excerpt', 'wpautop');
 								"employee_bio" => $employee_bio
 							)
 						?>
-						<div class="employee-bio-container col-md-6 col-lg-4 pt-5">
+						<div class="employee-bio-container col-sm-6 col-lg-4 pt-5">
 							<div class="employee-sub-container">
 								<a type="image" data-toggle="modal" data-target="#employeeBioModal" data-postid="<?php echo $team_post_id; ?>">
 									<div class="headshot-container row no-gutters" style="background-image:url(<?php echo $headshot; ?>)"></div>
@@ -114,7 +117,13 @@ remove_filter('the_excerpt', 'wpautop');
 									<?php echo $employee_title; ?>
 								</p>
 								<p class="main-p employee-phone">
-									<?php echo $employee_phone; ?> x <?php echo $phone_extension; ?>
+									<?php 
+										if($phone_extension) {
+											echo $employee_phone . " x " . $phone_extension; 
+										} else {
+											echo $employee_phone;
+										}
+									?>
 								</p>
 							</div>
 						</div>
@@ -125,12 +134,12 @@ remove_filter('the_excerpt', 'wpautop');
 				</div>
 			</div>
 		</div><!-- Team Members end -->
-		<div class="testimonials-wrapper">
-			<div class="circle-square-left">
-				<img src="/wp-content/uploads/2018/05/Circle-Square-left.svg" alt="">
+		<div class="testimonials-wrapper d-none d-lg-block">
+			<div class="circle-square-left d-none d-lg-block">
+				<img src="/wp-content/uploads/2018/06/Circle-Square-left.svg" alt="">
 			</div>
-			<div class="circle-square-right">
-				<img src="/wp-content/uploads/2018/05/Circle-Square-right.svg" alt="">
+			<div class="circle-square-right d-none d-lg-block">
+				<img src="/wp-content/uploads/2018/06/Circle-Square-right.svg" alt="">
 			</div>
 			<div id="carouselExampleIndicators" class="carousel slide h-100" data-ride="carousel">
 				<?php 
@@ -230,11 +239,11 @@ remove_filter('the_excerpt', 'wpautop');
 					<?php endwhile; ?>
 				</div>
 				<a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
-					<span class="carousel-control-prev-icon" aria-hidden="true"></span>
+					<span aria-hidden="true"><i class="fas fa-chevron-left"></i></span>
 					<span class="sr-only">Previous</span>
 				</a>
 				<a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
-					<span class="carousel-control-next-icon" aria-hidden="true"></span>
+					<span aria-hidden="true"><i class="fas fa-chevron-right"></i></span>
 					<span class="sr-only">Next</span>
 				</a>
 			</div>
@@ -260,7 +269,11 @@ remove_filter('the_excerpt', 'wpautop');
 			$('.emp-modal-h1').text(post[postId]['employee_name']);
 			$('.emp-modal-h1').text(post[postId]['employee_name']);
 			$('.emp-modal-title').text(post[postId]['employee_title']);
-			$('.emp-modal-number').text(post[postId]['employee_phone'] + " x " + post[postId]['phone_extension']);
+			if(post[postId]['phone_extension']) {
+				$('.emp-modal-number').text(post[postId]['employee_phone'] + " x " + post[postId]['phone_extension']);
+			} else {
+				$('.emp-modal-number').text(post[postId]['employee_phone']);
+			}
 			if(post[postId]['employee_bio']) {
 				$('.emp-modal-bio').html(post[postId]['employee_bio']);
 			} else {

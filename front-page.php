@@ -33,7 +33,7 @@ $args = array(
 	'post_status'      => 'publish',
 	'suppress_filters' => true,
 	'fields'           => '',
-	'post__not_in'     => array( 348, 362),
+	'post__not_in'     => array( 348, 362, 845),
 );
 // $posts_array = get_posts( $args );
 $loop = new WP_Query($args);
@@ -64,10 +64,10 @@ $loop = new WP_Query($args);
 		</div><!-- underwriter-wrapper end -->
 		<div class="recent-articles-wrapper">
 			<div class="recent-articles-circle-square-left d-none d-lg-block">
-				<img src="/wp-content/uploads/2018/05/Circle-Square-Left.svg" alt="">
+				<img src="/wp-content/uploads/2018/06/Circle-Square-Left-Full.svg" alt="">
 			</div>
 			<div class="recent-articles-circle-square-right d-none d-lg-block">
-				<img src="/wp-content/uploads/2018/05/Circle-Square-Right.svg" alt="">
+				<img src="/wp-content/uploads/2018/06/Circle-Square-Right-Full.svg" alt="">
 			</div>
 			<?php require( get_stylesheet_directory() . '/template-includes/recent-articles-4-posts.php' ); ?>
 		</div><!-- Recent Articles end -->

@@ -17,21 +17,25 @@ $container = get_theme_mod( 'understrap_container_type' );
 
 	<div class="footer">
 		<div class="row no-gutters justify-content-center">
-			<div class="col-10">
+			<div class="col-11 col-lg-10">
 				<div class="row">
 					<div class="col-12 col-md-4 col-lg-2">
 						<div class="row no-gutters justify-content-center justify-content-md-start">
-							<img src="/wp-content/uploads/2018/05/006937.svg" alt="">
+							<a href="/">
+								<img src="/wp-content/uploads/2018/05/006937.svg" alt="">
+							</a>
 						</div>
 					</div>
 					<div class="col-12 col-md-4 col-lg">
 						<div class="row mt-3 mt-md-0">
 							<div class="col-12 col-lg p-lg-0">
 								<div class="row no-gutters justify-content-center justify-content-md-start">
-									<h5 class="footer-address text-center text-md-left">
-										6821 West North Avenue<br>
-										Oak Park, IL 60302
-									</h5>
+									<a class="map-link" href="https://goo.gl/maps/zKp2pL4T3EB2" target="_blank">
+										<h5 class="footer-address text-center text-md-left">
+											6821 North Avenue<br>
+											Oak Park, IL 60302
+										</h5>
+									</a>
 								</div>
 							</div>
 							<div class="col-12 pt-2 pt-md-4 col-lg p-lg-0">
@@ -59,24 +63,29 @@ $container = get_theme_mod( 'understrap_container_type' );
 							<div class="col-12 col-lg">
 								<div class="row no-gutters justify-content-between justify-content-lg-center">
 									<div class="col-5 col-md-12 col-lg-4 p-lg-0 text-lg-center">
-										<a class="footer-social-link" href="#">
+										<a class="footer-social-link" href="https://www.facebook.com/prairietitle/" target="_blank">
 											<img src="/wp-content/uploads/2018/05/C-Facebook.svg" alt="">
+											<p class="d-inline-block d-lg-none m-0 align-middle">
+												Praire Title
+											</p>
 										</a>	
-										<p class="d-inline-block d-lg-none m-0 align-middle">
-											Praire Title
-										</p>
 									</div>
 									<div class="col-5 col-md-12 pt-0 pt-md-1 col-lg-4 p-lg-0 text-lg-center">
-										<a class="footer-social-link" href="#">
+										<a class="footer-social-link" href="https://twitter.com/prairietitle" target="_blank">
 											<img src="/wp-content/uploads/2018/05/C-Twitter.svg" alt="">
+											<p class="d-inline-block d-lg-none m-0 align-middle">@PraireTitle</p>
 										</a>
-										<p class="d-inline-block d-lg-none m-0 align-middle">@PraireTitle</p>
 									</div>
 								</div>
 							</div>
 							<div class="col-12 pt-3 col-lg pt-lg-0">
 								<div class="row no-gutters justify-content-center justify-content-md-start">
-									<img class="footer-bbb" src="/wp-content/uploads/2018/05/bbb.png" alt="">
+									<a href="https://www.bbb.org/chicago/business-reviews/title-agent/prairie-title-services-inc-in-oak-park-il-19003136" target="_blank">
+										<img class="footer-bbb" src="/wp-content/uploads/2018/05/bbb.png" alt="">
+									</a>
+								</div>
+								<div class="row no-gutters justify-content-center justify-content-md-start mt-2">
+									<a class="p-policy" href="/privacy-policy/">Privacy Policy</a>
 								</div>
 							</div>
 						</div>
@@ -92,7 +101,7 @@ $container = get_theme_mod( 'understrap_container_type' );
 </div><!-- #page we need this extra closing tag here -->
 
 <?php wp_footer(); ?>
-
+<script type="text/javascript" src="/wp-content/themes/understrap-child-master/js/menu-scripts.js"></script>
 </body>
 
 </html>

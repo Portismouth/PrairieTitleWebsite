@@ -1,17 +1,19 @@
-<div class="row no-gutters justify-content-center align-self-center">
-    <div class="col-11 col-lg-10">
+<div class="row no-gutters justify-content-center">
+    <div class="col-12">
         <div class="recent-articles-heading row no-gutters justify-content-between align-items-center">
             <div class="col-lg-6 text-center text-lg-left">
                 <h2>Recent Articles</h2>
             </div>
             <div class="col-lg-6 text-center text-lg-right d-none d-lg-block">
-                <a href="/homepage/resources/articles/">VIEW MORE<i class="fas fa-chevron-right"></i></a>
+                <a href="/homepage/resources/articles/">
+                    VIEW MORE<i class="fas fa-chevron-right"></i>
+                </a>
             </div>
-        </div><!-- end recent article heading row -->
+        </div>
         <div class="row justify-content-center">
             <?php if ( $loop->have_posts() ) : while ( $loop->have_posts() ) : $loop->the_post(); ?>
                 <?php if( get_field('article_hero_image', false, false) ): ?>
-                <div class="article-card-container col-lg-3 my-3">
+                <div class="article-card-container col-lg-4 my-3">
                     <a href="<?php echo the_permalink();?>">
                         <div class="article-card row no-gutters">
                             <div class="col-4 col-lg-12" >
@@ -50,7 +52,7 @@
                     </a>
                 </div><!-- end card -->
                 <?php else: ?>
-                <div class="article-card-container col-lg-3 my-3">
+                <div class="article-card-container col-lg-4 my-3">
                     <a href="<?php echo the_permalink();?>">
                         <div class="article-card-no-img">
                             <div class="row no-gutters">
@@ -66,14 +68,16 @@
                                     <div class="text-fade-overlay"></div>
                                     <?php if( strlen(get_field('article_hero_title')) < 50): ?>
                                         <p class="main-p">
-                                            <?php echo substr($summary, 0, 225) . "..."; ?>	
+                                            <?php echo substr($summary, 0, 200) . "..."; ?>	
                                         </p>
                                     <?php else: ?>
                                         <p class="main-p">
                                             <?php echo substr($summary, 0, 150) . "..."; ?>	
                                         </p>
                                     <?php endif; ?>	
-                                <? endwhile; ?>
+                                    <? 
+                                        endwhile;     
+                                    ?>
                             </div>
                             <div class="row no-gutters mt-3 mt-lg-auto">
                                 <div class="article-card-tag-list">
@@ -103,8 +107,10 @@
             <?php endif; ?>
             <?php wp_reset_postdata(); ?>
         </div><!-- end article card row -->
-        <div class="col-lg-6 text-center text-lg-right d-block d-lg-none my-3">
-            <a href="/homepage/resources/articles/">VIEW MORE <i class="fas fa-chevron-right"></i></a>
+        <div class="recent-articles-heading col-lg-6 text-center text-lg-right d-block d-lg-none my-3   ">
+            <a href="/homepage/resources/articles/">
+                VIEW MORE <i class="fas fa-chevron-right"></i>
+            </a>
         </div>
-    </div><!-- col-10 end -->
-</div><!-- end row -->
+    </div>
+</div>
