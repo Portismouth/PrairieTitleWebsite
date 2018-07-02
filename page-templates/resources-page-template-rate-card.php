@@ -62,7 +62,7 @@ remove_filter('the_excerpt', 'wpautop');
 		</div><!-- End Info Wrapper -->
 		<div class="main-content-wrapper">
 			<div id="rate-card-rect-left" class="rect-one d-none d-lg-block">
-				<img src="/wp-content/uploads/2018/06/Rectangles-Left-1.svg">
+				<img src="/wp-content/uploads/2018/07/Rectangles-Left.svg">
 			</div>
 			<div id="rate-card-rect-right" class="rect-two d-none d-lg-block">
 				<img src="/wp-content/uploads/2018/06/Rectangles-Right-1.svg">

@@ -3,9 +3,9 @@
 ?>
     <div class="col-10 col-md-11 col-lg-9">
         <?php while( have_rows('info_row')): the_row(); ?>
-            <div class="info-row row no-gutters">
+            <div class="info-row row no-gutters" data-aos="fade-up">
                 <?php if($counter % 2 == 0): ?>
-                    <div class="info-text col-md-6 col-lg-4 order-1 order-md-0 p-0 pr-md-3 p-lg-0">
+                    <div class="info-text col-md-6 col-lg-4 order-1 order-md-0 p-0 pr-md-3 p-lg-0 my-auto">
                         <div class="row no-gutters">
                             <h1 class="info-text-title">
                                 <?php echo the_sub_field('info_text_title') ?>
@@ -42,7 +42,7 @@
                             <div class="info-row-shadow-left col-12"></div>
                         </div>
                     </div>
-                    <div class="info-text col-md-6 col-lg-5 offset-lg-1 p-0 pl-md-3 p-lg-0">
+                    <div class="info-text col-md-6 col-lg-5 offset-lg-1 p-0 pl-md-3 p-lg-0 my-auto">
                         <div class="row no-gutters">
                             <h1 class="info-text-title">
                                 <?php echo the_sub_field('info_text_title') ?>

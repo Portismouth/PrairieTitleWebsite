@@ -1,5 +1,5 @@
-<div class="row no-gutters justify-content-center align-self-center">
-    <div class="col-11 col-lg-10">
+<div class="row no-gutters justify-content-center align-self-center w-100">
+    <div class="col-11 col-lg-8     col-xl-10">
         <div class="recent-articles-heading row no-gutters justify-content-between align-items-center">
             <div class="col-lg-6 text-center text-lg-left">
                 <h2>Recent Articles</h2>
@@ -8,10 +8,20 @@
                 <a href="/homepage/resources/articles/">VIEW MORE<i class="fas fa-chevron-right"></i></a>
             </div>
         </div><!-- end recent article heading row -->
-        <div class="row justify-content-center">
+        <div class="row justify-content-center justify-content-lg-between">
+            <?php
+                $count = 1;
+                $offset = 0;
+            ?>
             <?php if ( $loop->have_posts() ) : while ( $loop->have_posts() ) : $loop->the_post(); ?>
                 <?php if( get_field('article_hero_image', false, false) ): ?>
-                <div class="article-card-container col-lg-3 my-3">
+                <?php 
+                    if($count > 1) {
+                        echo '<div class="article-card-container col-12 col-lg-6 col-xl-3 my-3" data-aos="fade-up" data-aos-delay=' . $offset . '>';
+                    } else {
+                        echo '<div class="article-card-container col-12 col-lg-6 col-xl-3 my-3" data-aos="fade-up">';
+                    }
+                ?>
                     <a href="<?php echo the_permalink();?>">
                         <div class="article-card row no-gutters">
                             <div class="col-4 col-lg-12" >
@@ -50,7 +60,13 @@
                     </a>
                 </div><!-- end card -->
                 <?php else: ?>
-                <div class="article-card-container col-lg-3 my-3">
+                <?php 
+                    if($count > 1) {
+                        echo '<div class="article-card-container col-12 col-lg-6 col-xl-3 my-3" data-aos="fade-up" data-aos-delay=' . $offset . '>';
+                    } else {
+                        echo '<div class="article-card-container col-12 col-lg-6 col-xl-3 my-3" data-aos="fade-up">';
+                    }
+                ?>
                     <a href="<?php echo the_permalink();?>">
                         <div class="article-card-no-img">
                             <div class="row no-gutters">
@@ -65,11 +81,11 @@
                                 ?>
                                     <div class="text-fade-overlay"></div>
                                     <?php if( strlen(get_field('article_hero_title')) < 50): ?>
-                                        <p class="main-p">
+                                        <p class="article-card-prev main-p">
                                             <?php echo substr($summary, 0, 225) . "..."; ?>	
                                         </p>
                                     <?php else: ?>
-                                        <p class="main-p">
+                                        <p class="article-card-prev main-p">
                                             <?php echo substr($summary, 0, 150) . "..."; ?>	
                                         </p>
                                     <?php endif; ?>	
@@ -99,7 +115,11 @@
                     </a>
                 </div><!-- end card -->					
                 <?php endif; ?>
-            <?php endwhile; ?>
+            <?php 
+                $count++;
+                $offset += 250;
+                endwhile; 
+            ?>
             <?php endif; ?>
             <?php wp_reset_postdata(); ?>
         </div><!-- end article card row -->

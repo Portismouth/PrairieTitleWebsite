@@ -102,7 +102,7 @@ remove_filter('the_excerpt', 'wpautop');
 									<a href="/homepage/for-consumers">For Consumers</a>
 								</li>
 								<li class="breadcrumb-item active" aria-current="page">
-									<a href="<?php echo get_page_link()?>"><?php echo wp_title(''); ?></a>
+									<a href="<?php echo get_page_link()?>"><?php echo get_the_title(''); ?></a>
 								</li>
 							</ol>
 						</nav>
@@ -284,7 +284,7 @@ remove_filter('the_excerpt', 'wpautop');
 												</div>
 											</div>
 										</div>
-										<div class="col-lg-6 pl-lg-4">
+										<div class="col-lg-6 mt-4 mt-lg-0 pl-lg-4">
 											<div class="row no-gutters">
 												<h4 class="estimator-col-header">Seller's Charges</h4>
 											</div>

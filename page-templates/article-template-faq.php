@@ -101,7 +101,6 @@ $loop = new WP_Query($args);
 <script type="text/javascript">
 	jQuery(document).ready(function($){
 		if(document.getElementById('no-image')) {
-			console.log('sup?')
 			$('.navbar').css('height', '140px');
 			$('.mega-menu-link').css('color', '#4A5155');
 			$('.custom-logo-link img').attr('src', '/wp-content/uploads/2018/05/006937-1.svg');

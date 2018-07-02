@@ -101,7 +101,7 @@ $container = get_theme_mod( 'understrap_container_type' );
 </div><!-- #page we need this extra closing tag here -->
 
 <?php wp_footer(); ?>
-<script type="text/javascript" src="/wp-content/themes/understrap-child-master/js/menu-scripts.js"></script>
+<!-- <script type="text/javascript" src="/wp-content/themes/understrap-child-master/js/menu-scripts.js"></script> -->
 </body>
 
 </html>

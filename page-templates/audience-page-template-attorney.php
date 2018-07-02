@@ -111,7 +111,7 @@ $loop = new WP_Query($args);
 			</div><!-- info-rows-wrapper end -->
 			<!-- Recent Articles with Twitter Feed -->
 			<div class="recent-articles-wrapper-b row no-gutters justify-content-center mt-5 mt-lg-0">
-				<div class="col-11 col-lg-10">
+				<div class="col-11 col-lg-9">
 					<?php require( get_stylesheet_directory() . '/template-includes/recent-articles-3-posts-twitter.php' ); ?>
 				</div>
 			</div><!-- Recent Articles with Twitter Feed End -->

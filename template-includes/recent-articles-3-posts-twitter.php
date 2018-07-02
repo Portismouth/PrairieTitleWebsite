@@ -1,5 +1,5 @@
 <div class="row no-gutters justify-content-center">
-    <div class="col-12 col-lg-9">
+    <div class="col-12 col-xl-9">
         <div class="recent-articles-heading row no-gutters justify-content-between align-items-center">
             <div class="col-lg-6 text-center text-lg-left">
                 <h2>Recent Articles</h2>
@@ -11,9 +11,19 @@
             </div>
         </div>
         <div class="row justify-content-center">
+            <?php
+                $count = 1;
+                $offset = 0;
+            ?>
             <?php if ( $loop->have_posts() ) : while ( $loop->have_posts() ) : $loop->the_post(); ?>
                 <?php if( get_field('article_hero_image', false, false) ): ?>
-                <div class="article-card-container col-lg-4 my-3">
+                <?php 
+                    if($count > 1) {
+                        echo '<div class="article-card-container col-lg-4 my-3" data-aos="fade-up" data-aos-delay=' . $offset . '>';
+                    } else {
+                        echo '<div class="article-card-container col-lg-4 my-3" data-aos="fade-up">';
+                    }
+                ?>
                     <a href="<?php echo the_permalink();?>">
                         <div class="article-card row no-gutters">
                             <div class="col-4 col-lg-12" >
@@ -52,7 +62,13 @@
                     </a>
                 </div><!-- end card -->
                 <?php else: ?>
-                <div class="article-card-container col-lg-4 my-3">
+                <?php 
+                    if($count > 1) {
+                        echo '<div class="article-card-container col-lg-4 my-3" data-aos="fade-up" data-aos-delay='. $offset . '>';
+                    } else {
+                        echo '<div class="article-card-container col-lg-4 my-3" data-aos="fade-up">';
+                    }
+                ?>
                     <a href="<?php echo the_permalink();?>">
                         <div class="article-card-no-img">
                             <div class="row no-gutters">
@@ -103,7 +119,11 @@
                     </a>
                 </div><!-- end card -->					
                 <?php endif; ?>
-            <?php endwhile; ?>
+            <?php
+                $count++;
+                ($count == 4) ? $offset += 500 : $offset += 250;
+                endwhile; 
+            ?>
             <?php endif; ?>
             <?php wp_reset_postdata(); ?>
         </div><!-- end article card row -->
@@ -113,8 +133,8 @@
             </a>
         </div>
     </div>
-    <div class="col-12 col-lg-3 pl-lg-4 pb-5 pb-lg-0">
-       <div class="row no-gutters">
+    <div class="col-12 col-xl-3 pl-xl-4 pb-5 pb-lg-0" data-aos="fade-up" data-aos-delay="750">
+        <div class="row no-gutters">
             <h4 class="twitter-heading">
                 <i class="fab fa-twitter"></i> @PrairieTitle
             </h4>
@@ -122,7 +142,7 @@
         <div class="row no-gutters mt-lg-3">
             <?php echo do_shortcode('[custom-twitter-feeds showheader=false num=5 showbutton=false height=354px]'); ?>
         </div>
-        <div class="twitter-link-box row no-gutters align-items-center">
+        <div class="twitter-link-box row no-gutters align-items-center mb-lg-5">
             <div class="col text-center">
                 <a href="https://twitter.com/prairietitle" target="_blank">
                     View on Twitter

@@ -131,6 +131,7 @@ $similar_posts = get_field('similar_article');
 			$('.mega-menu-link').css('color', '#4A5155');
 			$('.custom-logo-link img').attr('src', '/wp-content/uploads/2018/05/006937-1.svg');
 			$('.menu-icon').attr('src', '/wp-content/uploads/2018/06/Menu_Button_Maroon.svg');
+			$('#mega-toggle-block-1').css('margin-top', ('85px'));
 		}
 	});
 	

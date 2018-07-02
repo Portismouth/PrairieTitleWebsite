@@ -47,7 +47,7 @@ $loop = new WP_Query($args);
 				<img src="/wp-content/uploads/2018/06/Rectangles-Right-3.svg" alt="">
 			</div>
 			<div class="audience-page-cards-wrapper">
-				<div class="row no-gutters justify-content-center">
+				<div class="row no-gutters justify-content-center" data-aos="fade-up">
 					<div class="col-11 col-md-12 col-lg-9">
 						<div class="row no-gutters justify-content-around">
 							<div class="info-image-holder col-md-5 col-lg-6 d-none d-md-block">

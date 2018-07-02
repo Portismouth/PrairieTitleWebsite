@@ -10,10 +10,10 @@
                 </a>
             </div>
         </div>
-        <div class="row justify-content-center">
+        <div class="row justify-content-center justify-content-lg-between">
             <?php if ( $loop->have_posts() ) : while ( $loop->have_posts() ) : $loop->the_post(); ?>
                 <?php if( get_field('article_hero_image', false, false) ): ?>
-                <div class="article-card-container col-lg-4 my-3">
+                <div class="article-card-container col-lg-6 col-xl-4 my-3">
                     <a href="<?php echo the_permalink();?>">
                         <div class="article-card row no-gutters">
                             <div class="col-4 col-lg-12" >
@@ -52,7 +52,7 @@
                     </a>
                 </div><!-- end card -->
                 <?php else: ?>
-                <div class="article-card-container col-lg-4 my-3">
+                <div class="article-card-container col-lg-6 col-xl-4 my-3">
                     <a href="<?php echo the_permalink();?>">
                         <div class="article-card-no-img">
                             <div class="row no-gutters">

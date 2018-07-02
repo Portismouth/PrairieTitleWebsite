@@ -1,8 +1,8 @@
-<div class="row no-gutters justify-content-center align-items-center">
+<div class="row no-gutters justify-content-center align-items-center w-100">
 <?php if($sim_post_count === 3): ?>
     <div class="col-11 col-lg-8"><!-- start main col -->
 <?php else: ?> 
-    <div class="col-11 col-lg-10"><!-- start main col -->
+    <div class="col-11 col-lg-8 col-xl-10"><!-- start main col -->
 <?php endif; ?>
         <div class="recent-articles-heading row no-gutters justify-content-between align-items-center">
             <div class="col-lg-6 text-center text-lg-left">
@@ -12,14 +12,26 @@
                 <a href="/homepage/resources/articles/">VIEW MORE<i class="fas fa-chevron-right"></i></a>
             </div>
         </div><!-- end recent article heading row -->
-        <div class="row justify-content-center">
+        <div class="row justify-content-center justify-content-lg-between">
+            <?php
+                $count = 1;
+                $offset = 0;
+            ?>
             <?php foreach($similar_posts as $post): ?>
                 <?php setup_postdata($post); ?>
                     <?php if( get_field('article_hero_image', false, false) ): ?>
                         <?php if($sim_post_count === 3) {
-                            echo '<div class="article-card-container col-lg-4 my-3">';
+                            if($count > 1) {
+                                echo '<div class="article-card-container col-12 col-lg-4 my-3" data-aos="fade-up" data-aos-delay=' . $offset . '>';
+                            } else {
+                                echo '<div class="article-card-container col-12 col-lg-4 my-3 my-3" data-aos="fade-up">';
+                            }
                         } else {
-                            echo '<div class="article-card-container col-lg-3 my-3">';
+                            if($count > 1) {
+                                echo '<div class="article-card-container col-12 col-lg-6 col-xl-3 my-3" data-aos="fade-up" data-aos-delay=' . $offset . '>';
+                            } else {
+                                echo '<div class="article-card-container col-12 col-lg-6 col-xl-3 my-3" data-aos="fade-up">';
+                            }
                         }
                         ?>
                             <a href="<?php echo the_permalink();?>">
@@ -62,9 +74,17 @@
                     <?php else: ?>
                         <?php 
                             if($sim_post_count === 3) {
-                                echo '<div class="article-card-container col-lg-4 my-3">';
+                                if($count > 1) {
+                                    echo '<div class="article-card-container col-12 col-lg-4 my-3" data-aos="fade-up" data-aos-delay=' . $offset . '>';
+                                } else {
+                                    echo '<div class="article-card-container col-12 col-lg-4 my-3 my-3" data-aos="fade-up">';
+                                }
                             } else {
-                                echo '<div class="article-card-container col-lg-3 my-3">';
+                                if($count > 1) {
+                                    echo '<div class="article-card-container col-12 col-lg-6 col-xl-3 my-3" data-aos="fade-up" data-aos-delay=' . $offset . '>';
+                                } else {
+                                    echo '<div class="article-card-container col-12 col-lg-6 col-xl-3 my-3" data-aos="fade-up">';
+                                }
                             }
                         ?>
                             <a href="<?php echo the_permalink();?>">
@@ -117,7 +137,11 @@
                         </div><!-- end card -->    
                     <?php wp_reset_postdata(); ?>
                 <?php endif; ?>
-            <?php endforeach; ?>
+            <?php 
+                $count++;
+                $offset += 250;
+                endforeach; 
+            ?>
         </div>
     </div><!-- end main col -->
 </div>

@@ -124,7 +124,7 @@ $loop = new WP_Query($args);
 						</div>
 					</div>
 					<div class="row no-gutters justify-content-center my-5">
-						<?php if(have_rows('podcasts')): ?>
+							<?php if(have_rows('podcasts')): ?>
 							<?php while( have_rows('podcasts')): the_row(); ?>
 							<div class="col-lg-6 pr-2">
 								<div class="row no-gutters">
@@ -132,10 +132,8 @@ $loop = new WP_Query($args);
 										<?php the_sub_field('podcast_title'); ?>
 									</h4>
 								</div>
-								<div class="row no-gutters my-3">
-									<div class="embed-responsive embed-responsive-16by9">
+								<div class="audio-container row no-gutters my-3">
 										<?php the_sub_field('podcast_file'); ?>
-									</div>
 								</div>
 							</div>
 							<?php endwhile; ?>

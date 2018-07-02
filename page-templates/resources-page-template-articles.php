@@ -46,7 +46,7 @@ $wp_query = new WP_Query($args);
 			<div class="rect-two d-none d-lg-block">
 				<img src="/wp-content/uploads/2018/06/Rectangles-Right.svg" alt="">
 			</div>
-			<div class="col-11 col-lg-8"><!-- main page col start -->
+			<div class="col-11 col-lg-10 col-xl-8"><!-- main page col start -->
 				<div class="explore-topic-wrapper row no-gutters">
 					<h3 class="media-section-header w-100">Explore Topics</h3>
 						<?php foreach($tags as $tag): ?>
